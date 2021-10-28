@@ -12,7 +12,7 @@ type PropsType = {
     title: string
     tasks: Array<TaskType>
     removeTask: (taskId: string) => void
-    changeFilter: (value: FilterValuesType) => void
+   /* changeFilter: (value: FilterValuesType) => void*/
     addTask: (title: string) => void
 }
 
@@ -36,12 +36,36 @@ export function Todolist(props: PropsType) {
     }
 
     const onClickFilter = (value: FilterValuesType) => {
-        props.changeFilter(value)
+        changeFilter(value)
     }
 
     const onClickHandler = (tId: string) => {
         props.removeTask(tId)
     }
+
+
+
+
+
+    let [filter, setFilter] = useState<FilterValuesType>("all");
+
+    let tasksForTodolist = props.tasks;
+
+    if (filter === "active") {
+        tasksForTodolist = props.tasks.filter(t => t.isDone === false);
+    }
+    if (filter === "completed") {
+        tasksForTodolist = props.tasks.filter(t => t.isDone === true);
+    }
+
+    function changeFilter(value: FilterValuesType) {
+        setFilter(value);
+    }
+
+
+
+
+
 
     return <div>
         <h3>{props.title}</h3>
@@ -55,7 +79,7 @@ export function Todolist(props: PropsType) {
         </div>
         <ul>
             {
-                props.tasks.map(t => {
+                tasksForTodolist.map(t => {
 
                     return <li key={t.id}>
                         <input type="checkbox" checked={t.isDone}/>
@@ -67,15 +91,9 @@ export function Todolist(props: PropsType) {
         </ul>
         <div>
 
-            <Button callBack={() => {
-                onClickFilter('all')
-            }} name={'all'}/>
-            <Button callBack={() => {
-                onClickFilter('active')
-            }} name={'active'}/>
-            <Button callBack={() => {
-                onClickFilter('completed')
-            }} name={'completed'}/>
+            <Button callBack={() => {onClickFilter('all')}} name={'all'}/>
+            <Button callBack={() => {onClickFilter('active')}} name={'active'}/>
+            <Button callBack={() => {onClickFilter('completed')}} name={'completed'}/>
 
         </div>
     </div>
