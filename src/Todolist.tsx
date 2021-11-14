@@ -5,7 +5,7 @@ import {FullInput} from "./components/FullInput";
 import {Input} from "./components/Input";
 import {MapTasksForTodolist} from "./components/MapTasksForTodolist";
 
-type TaskType = {
+export type TaskType = {
     id: string
     title: string
     isDone: boolean
@@ -26,9 +26,9 @@ export function Todolist({tasks, removeTask, ...props}: PropsType) {
         changeFilter(value)
     }
 
-    const onClickHandler = (tId: string) => {
+/*    const onClickHandler = (tId: string) => {
         removeTask(tId)
-    }
+    }*/
 
 
     let [filter, setFilter] = useState<FilterValuesType>("all");
@@ -63,11 +63,13 @@ export function Todolist({tasks, removeTask, ...props}: PropsType) {
         <ul>
             {
                 tasksForTodolist.map(t => {
-                    return <li key={t.id}>
-                        <input type="checkbox" checked={t.isDone}/>
-                        <span>{t.title}</span>
-                        <button onClick={() => onClickHandler(t.id)}>x</button>
-                    </li>
+                    return <MapTasksForTodolist t={t} removeTask={removeTask}/>
+                    // return <li key={t.id}>
+                    //     <input type="checkbox" checked={t.isDone}/>
+                    //     <span>{t.title}</span>
+                    //     <button onClick={() => onClickHandler(t.id)}>x</button>
+                    // </li>
+
                 })
             }
         </ul>
