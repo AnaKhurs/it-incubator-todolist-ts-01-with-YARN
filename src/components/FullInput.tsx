@@ -1,39 +1,37 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {Button} from "./Button";
 
-
 type PropsType = {
-    addTask: (title: string) => void
+    callBack: (title: string) => void
 }
 
+
 export const FullInput = (props: PropsType) => {
-
     let [title, setTitle] = useState("")
-
+   // console.log(title)
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
-
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.charCode === 13) {
-            onClickHandler(title)
+            //addTask();
+            callBackHandler();
         }
     }
 
 
-    const onClickHandler = (title: string) => {
-        props.addTask(title)
-        setTitle("")
+    const callBackHandler = () => {
+        props.callBack(title)
     }
-
-
     return (
         <div>
             <input value={title}
                    onChange={onChangeHandler}
                    onKeyPress={onKeyPressHandler}
             />
-            <Button name={"+"} callBack={() => onClickHandler(title)}/>
+            <Button callBack={callBackHandler} name={"+"}/>
+            {/* <button onClick={addTask}>+</button>*/}
         </div>
+
     )
 }
