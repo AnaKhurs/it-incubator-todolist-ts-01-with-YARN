@@ -17,22 +17,22 @@ type PropsType = {
     addTask: (title: string) => void
 }
 
-export function Todolist(props: PropsType) {
+export function Todolist({tasks, removeTask, ...props}: PropsType) {
 
-    let [title, setTitle] = useState("")
+    // let [title, setTitle] = useState("")
 
     const onFilterClickHandler = (value: FilterValuesType) => {
         changeFilter(value)
     }
 
     const onClickHandler = (tId: string) => {
-        props.removeTask(tId)
+        removeTask(tId)
     }
 
 
     let [filter, setFilter] = useState<FilterValuesType>("all");
 
-    let tasksForTodolist = props.tasks;
+    let tasksForTodolist = tasks;
 
     if (filter === "active") {
         tasksForTodolist = props.tasks.filter(t => !t.isDone);
