@@ -3,6 +3,7 @@ import {FilterValuesType} from './App';
 import {Button} from "./components/Button";
 import {FullInput} from "./components/FullInput";
 import {Input} from "./components/Input";
+import {MapTasksForTodolist} from "./components/MapTasksForTodolist";
 
 type TaskType = {
     id: string
@@ -19,7 +20,7 @@ type PropsType = {
 
 export function Todolist({tasks, removeTask, ...props}: PropsType) {
 
-    // let [title, setTitle] = useState("")
+    let [title, setTitle] = useState("")
 
     const onFilterClickHandler = (value: FilterValuesType) => {
         changeFilter(value)
@@ -35,10 +36,10 @@ export function Todolist({tasks, removeTask, ...props}: PropsType) {
     let tasksForTodolist = tasks;
 
     if (filter === "active") {
-        tasksForTodolist = props.tasks.filter(t => !t.isDone);
+        tasksForTodolist = tasks.filter(t => !t.isDone);
     }
     if (filter === "completed") {
-        tasksForTodolist = props.tasks.filter(t => t.isDone);
+        tasksForTodolist = tasks.filter(t => t.isDone);
     }
 
     function changeFilter(value: FilterValuesType) {
